@@ -1,0 +1,36 @@
+{
+  "manifest_version": 2,
+  "name": "Timely Video Comments",
+  "description": "Add the element of time to the comments you write on the videos you love.",
+  "version": "2.1",
+  "icons": { "128": "img/icon.png" },
+  "browser_action": {
+    "default_icon": "img/icon.png",
+    "default_popup": "popup.html"
+  },
+  "background": {
+  	"page": "background.html"
+    //"scripts": ["js/jquery-2.0.3.min.js", "background.js"]
+  },
+  "permissions": [
+    "identity"
+  ],
+  /*"content_scripts": [
+    {
+      "run_at": "document_end",
+      "matches": ["https://www.netflix.com/watch/*", "http://www.netflix.com/watch/*",
+      "https://www.youtube.com/watch*", "http://www.youtube.com/watch*"],
+      "js": ["js/jquery-2.0.3.min.js", "index.js"]
+    }
+  ],*/
+
+  "content_security_policy":"script-src 'self' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com; object-src 'self'",
+  "oauth2": {
+    "client_id": "418211874508-5tplavmarkt1mvr20kjq1b68kiudnmto.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email",
+      "https://www.googleapis.com/auth/userinfo.profile"
+    ]
+  },
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoLYvFru7nZyB82iPH2rmygaeCMswJd4tf+ir6NnWsjmwcw0lSUVC4KmAg+AHOWrjDKPniSrSdkAuV5XiHOc5vzKCeOtwKL8HTkbmvcM2yFacS5wgtpkf56yQuonfICLS2mLY9ATwXbZ79ud6wfD/ppyOyfIAxlVcdAKo3YDQZ8yHWpRTSBhJiEu6D1Ax9lY+CU0xdNsUcyNfNjAVi0tLgxa+v2khLk5m4dNHFWex/7F0lcE9N/xrYh0O+xGffmWapWQytr7WsLR5Jk0wdJnbqpQyRVrKoodN2tU2k/DV//0pFKpPhKuj3IKSSgP6uWvJlnxSSpAGo8zdRtcjlQUVxwIDAQAB"
+}

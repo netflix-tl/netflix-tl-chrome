@@ -1,0 +1,92 @@
+* {box-sizing: border-box;	font-family: 'Roboto', sans-serif;}
+
+html {
+	border-radius: 0px;
+	box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12)
+}
+
+body {
+	padding 0;
+	margin: 0;
+	font-weight: 400;
+}
+
+button {
+	font-family: inherit;
+	font-weight: 500;
+	border: 0;
+	outline: 0;
+	padding: 0;
+	border-radius: 2px;
+	letter-spacing: .010em;
+	text-transform: uppercase;
+	font-size: 14px;
+	background: transparent;
+	transition: box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.btn-bar {
+	display: inline-block;
+	width: 100%;
+}
+
+.submit-btn {
+	height: 32px;
+	width: 80px;
+	margin: 5px 5px;
+}
+
+
+.gear-btn {
+	float: right;
+	height: 32px;
+	width: 32px;
+	margin: 5px 5px;
+}
+
+.gear-btn span {
+	display: inline-block;
+	vertical-align: middle;
+	line-height: 14px;
+}
+
+.gear-icon {
+	display: inline-block;
+	vertical-align: middle;
+	line-height: 14px;
+}
+
+button:hover, button:active {
+	background-color: rgba(0, 0, 0, .1);
+	box-shadow: 
+}
+
+button:active {
+	background-color: rgba(0, 0, 0, .2);
+}
+
+
+input {
+	margin: 5px 5px;
+	padding: 4px 6px;
+	outline: 0;
+	border: 0;
+	border-bottom: 2px solid #f3f3f3;
+	transition: border-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+input:focus {
+	border-color: #D32F2F;
+}
+
+.time-label, .char-label {
+	margin: 1px 5px;
+}
+
+.char-label {
+	transition: color .1s;
+}
+
+.full-char-label {
+	color: #D32F2F;
+}

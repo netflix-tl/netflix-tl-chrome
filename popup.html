@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+	<head>
+	    <meta charset="utf-8">		
+		<title>Timely Submit</title>
+		
+		<!-- Scripts-->
+		<link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
+		<link href='./popup.css' rel='stylesheet'>
+		<script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+
+	</head>
+	
+	<body>
+		<div id="time-label" class="time-label"></div>
+ 		
+		<input id="input-field"
+				class="input-field" 
+				type = 'text'
+				maxlength='140' 
+				placeholder="insightful comment"
+				autofocus/>
+
+		<span class="char-label" id="char-label">30/140</span>
+		<div class="btn-bar">
+			<button id="submit-btn" 
+					class="submit-btn">Submit</button>
+			<button id="options-btn" class="gear-btn">
+				<span>
+				<img src="./img/gear.svg" class="gear-icon" alt="Options"></img>
+				</span>
+			</button>
+		</div>
+		<button id="login-btn" class="submit-btn">default</button>
+		<button id="test" class="submit-btn">test</button>
+		<div>
+			<p id='user-content'></p>
+		</div>
+
+		<script src ="popup.js"></script>
+	</body>
+
+</html>
