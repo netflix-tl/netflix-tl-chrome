@@ -1,5 +1,7 @@
+
 // Initialize Firebase
-var config = {
+export const start = () => {
+const config = {
     apiKey: "AIzaSyDmdXL5QSnAv4h1xIx4YUkuoAoGsN83rzo",
     authDomain: "timely-vc.firebaseapp.com",
     databaseURL: "https://timely-vc.firebaseio.com",
@@ -7,20 +9,21 @@ var config = {
     storageBucket: "timely-vc.appspot.com",
     messagingSenderId: "418211874508"
   };
-  firebase.initializeApp(config);
-
-  var sessionUser;
-
-function openOptions() {
-  if (chrome.runtime.openOptionsPage) {
-    chrome.runtime.openOptionsPage();
+firebase.initializeApp(config);
+let sessionUser;
+firebase.auth().onAuthStateChanged(function(user) {
+  console.log('popup.js detected state change')
+  if (user) {
+    //document.getElementById('user-content').innerText = JSON.stringify(user, null, "  ")
+    //loginBtn.textContent = 'Sign Out';
+    sessionUser = user
   } else {
-    console.log("Error opening options");
+    //loginBtn.textContent = 'Sign In'
+    //document.getElementById('user-content').innerText = null;
   }
+  loginBtn.disabled = false
+})
 }
-
-
-
 
 /**
  * Start the auth flow and authorizes to Firebase.
@@ -57,41 +60,9 @@ function startAuth(interactive) {
   });
 }
 
-function initApp() {
-  console.log('init app')
-  var inputField = document.getElementById('input-field'),
-      charLabel = document.getElementById('char-label'),
-      timeLabel = document.getElementById('time-label'),
-      messageText = document.getElementById('message-text'),
-      submitBtn = document.getElementById('submit-btn'),
-      optionsBtn = document.getElementById('options-btn'),
-      loginBtn = document.getElementById('login-btn');
-
-  submitBtn.addEventListener('click', submit);
-  optionsBtn.addEventListener('click', openOptions);
-  loginBtn.addEventListener('click', login);
-
-  inputField.addEventListener('keydown', function(e){
-    if (e.keyCode === 13) {
-      console.log('key 13')
-      submitBtn.click()
-      inputField.textContent = '';
-    }
-    setTimeout(function(){
-      var remChars = 140 - inputField.value.length;
-      charLabel.textContent = remChars + "/140"
-      if (remChars === 0) {
-        charLabel.classList.add('full-char-label')
-      } else {
-        charLabel.classList.remove('full-char-label')
-      }
-    }, 0)
-  })
-
-  function submit() {
-    console.log("pressed submit")
+export function submit() {
+    console.log("Auth.submit")
     if (firebase.auth().currentUser) {
-      console.log('submitting')
       groupsId = "54321"
       videoId = '12345'
       firebase.database().ref('groups/' + groupsId + '/comments/' + videoId)
@@ -102,8 +73,7 @@ function initApp() {
       })
     }
   }
-  function login() {
-    loginBtn.disabled = true
+export function login() {
     if (firebase.auth().currentUser) {
       console.log(firebase.auth().currentUser)
       firebase.auth().signOut()
@@ -111,21 +81,3 @@ function initApp() {
       startAuth(true);
     }
   }
-
-  firebase.auth().onAuthStateChanged(function(user) {
-    console.log('popup.js detected state change')
-    if (user) {
-      //document.getElementById('user-content').innerText = JSON.stringify(user, null, "  ")
-      loginBtn.textContent = 'Sign Out';
-      sessionUser = user
-    } else {
-      loginBtn.textContent = 'Sign In'
-      //document.getElementById('user-content').innerText = null;
-    }
-    loginBtn.disabled = false
-  })
-}
-
-window.onload = function() {
-  initApp()
-}
