@@ -1,5 +1,5 @@
 export default class popupDOM {
-    constructor() {
+  constructor() {
       this.inputField = document.getElementById('input-field')
       this.charLabel = document.getElementById('char-label')
       this.timeLabel = document.getElementById('time-label')
@@ -8,5 +8,10 @@ export default class popupDOM {
       this.optionsBtn = document.getElementById('options-btn')
       this.loginBtn = document.getElementById('login-btn')
       this.testBtn = document.getElementById('test-btn')
+  }
+
+    loadOptionsPage() {
+      console.log("TODO: add options transition")
     }
+
 }

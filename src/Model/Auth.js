@@ -1,29 +1,35 @@
-
-let sessionUser;
+export function login() {
+    if (firebase.auth().currentUser) {
+      console.log(firebase.auth().currentUser)
+      firebase.auth().signOut()
+    } else {
+      startAuth(true);
+    }
+}
 
 // Initialize Firebase
-export const start = () => {
-const config = {
-    apiKey: "AIzaSyDmdXL5QSnAv4h1xIx4YUkuoAoGsN83rzo",
-    authDomain: "timely-vc.firebaseapp.com",
-    databaseURL: "https://timely-vc.firebaseio.com",
-    projectId: "timely-vc",
-    storageBucket: "timely-vc.appspot.com",
-    messagingSenderId: "418211874508"
-  };
-firebase.initializeApp(config);
-firebase.auth().onAuthStateChanged(function(user) {
-  console.log('popup.js detected state change')
-  if (user) {
-    //document.getElementById('user-content').innerText = JSON.stringify(user, null, "  ")
-    //loginBtn.textContent = 'Sign Out';
-    sessionUser = user
-  } else {
-    //loginBtn.textContent = 'Sign In'
-    //document.getElementById('user-content').innerText = null;
-  }
-  loginBtn.disabled = false
-})
+export function start() {
+  const config = {
+      apiKey: "AIzaSyDmdXL5QSnAv4h1xIx4YUkuoAoGsN83rzo",
+      authDomain: "timely-vc.firebaseapp.com",
+      databaseURL: "https://timely-vc.firebaseio.com",
+      projectId: "timely-vc",
+      storageBucket: "timely-vc.appspot.com",
+      messagingSenderId: "418211874508"
+    }
+  firebase.initializeApp(config)
+  firebase.auth().onAuthStateChanged(function(user) {
+    console.log('popup.js detected state change')
+    if (user) {
+      //document.getElementById('user-content').innerText = JSON.stringify(user, null, "  ")
+      //loginBtn.textContent = 'Sign Out';
+      //sessionUser = user
+    } else {
+      //loginBtn.textContent = 'Sign In'
+      //document.getElementById('user-content').innerText = null;
+    }
+    loginBtn.disabled = false
+  })
 }
 
 /**
@@ -60,25 +66,3 @@ function startAuth(interactive) {
     }
   });
 }
-
-export function submit(comment) {
-    console.log("Auth.submit")
-    if (firebase.auth().currentUser) {
-      let groupId = "54321"
-      let videoId = '12345'
-      firebase.database().ref('groups/' + groupId + '/videos/' + videoId + '/comments/')
-        .push({
-        uid: sessionUser.uid,
-        content: comment,
-        time: 1001
-      })
-    }
-  }
-export function login() {
-    if (firebase.auth().currentUser) {
-      console.log(firebase.auth().currentUser)
-      firebase.auth().signOut()
-    } else {
-      startAuth(true);
-    }
-  }
