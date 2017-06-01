@@ -1,4 +1,6 @@
 
+let sessionUser;
+
 // Initialize Firebase
 export const start = () => {
 const config = {
@@ -10,7 +12,6 @@ const config = {
     messagingSenderId: "418211874508"
   };
 firebase.initializeApp(config);
-let sessionUser;
 firebase.auth().onAuthStateChanged(function(user) {
   console.log('popup.js detected state change')
   if (user) {
@@ -60,15 +61,15 @@ function startAuth(interactive) {
   });
 }
 
-export function submit() {
+export function submit(comment) {
     console.log("Auth.submit")
     if (firebase.auth().currentUser) {
-      groupsId = "54321"
-      videoId = '12345'
+      let groupsId = "54321"
+      let videoId = '12345'
       firebase.database().ref('groups/' + groupsId + '/comments/' + videoId)
         .push({
         uid: sessionUser.uid,
-        content: inputField.value,
+        content: comment,
         time: 1001
       })
     }
