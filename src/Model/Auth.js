@@ -64,9 +64,9 @@ function startAuth(interactive) {
 export function submit(comment) {
     console.log("Auth.submit")
     if (firebase.auth().currentUser) {
-      let groupsId = "54321"
+      let groupId = "54321"
       let videoId = '12345'
-      firebase.database().ref('groups/' + groupsId + '/comments/' + videoId)
+      firebase.database().ref('groups/' + groupId + '/videos/' + videoId + '/comments/')
         .push({
         uid: sessionUser.uid,
         content: comment,
