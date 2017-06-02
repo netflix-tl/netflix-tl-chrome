@@ -1,14 +1,26 @@
 export function login() {
-    if (firebase.auth().currentUser) {
-      console.log(firebase.auth().currentUser)
-      firebase.auth().signOut()
+    if (!firebase.auth().currentUser) {
+        startAuth(true);
     } else {
-      startAuth(true);
+        console.log("already signed in: ", firebase.auth().currentUser)
     }
 }
 
+export function logout() {
+  if (firebase.auth().currentUser) {
+    console.log('signed out')
+    firebase.auth().signOut()
+  } else {
+    console.log("not signed in")
+  }
+}
+
+export function isUserLoggedIn() {
+  return !!firebase.auth().currentUser
+}
+
 // Initialize Firebase
-export function start() {
+export function start(onLogin, onLogoff) {
   const config = {
       apiKey: "AIzaSyDmdXL5QSnAv4h1xIx4YUkuoAoGsN83rzo",
       authDomain: "timely-vc.firebaseapp.com",
@@ -19,17 +31,22 @@ export function start() {
     }
   firebase.initializeApp(config)
   firebase.auth().onAuthStateChanged(function(user) {
-    console.log('popup.js detected state change')
+    //console.log('popup.js detected state change')
     if (user) {
+      console.log('state logged in')
+      onLogin(user)
       //document.getElementById('user-content').innerText = JSON.stringify(user, null, "  ")
       //loginBtn.textContent = 'Sign Out';
       //sessionUser = user
     } else {
+      console.log('state logged out')
+      onLogoff()
       //loginBtn.textContent = 'Sign In'
       //document.getElementById('user-content').innerText = null;
     }
-    loginBtn.disabled = false
+    //loginBtn.disabled = false
   })
+  setTimeout(() => console.log(firebase.auth().currentUser),1000)
 }
 
 /**

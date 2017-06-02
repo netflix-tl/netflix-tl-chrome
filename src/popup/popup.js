@@ -3,56 +3,72 @@ import * as Auth from '../Model/Auth.js'
 import PopupDOM from './popup.dom.js'
 import * as Comment from '../Model/Comment.js'
 import * as Group from '../Model/Group.js'
-
-const DOM = new PopupDOM()
-function openOptions() {
-  DOM.loadOptionsPage()
-}
+import Options from '../options/options.js'
 
 function initApp() {
-  Auth.start()
-  console.log('init app')
-  DOM.submitBtn.addEventListener('click', submit);
-  DOM.optionsBtn.addEventListener('click', openOptions);
-  DOM.loginBtn.addEventListener('click', Auth.login);
-  DOM.testBtn.addEventListener('click', testFunction)
-  DOM.inputField.addEventListener('keydown', inputKeydown);
+
+  let DOM = new PopupDOM()
+
+  /**
+   * closeLoginPrompt and loginPrompt are passed to Auth.js,
+   *   and are called when the login/logout status of the 
+   *   user changes.
+   */
+  Auth.start(closeLoginPrompt, loginPrompt)
+
+  DOM.submitBtn.addEventListener('click', submit)
+  DOM.optionsBtn.addEventListener('click', openOptions)
+  DOM.logout.addEventListener('click', logout)
+  DOM.inputField.addEventListener('keydown', inputKeydown)
+
 
   function submit() {
     Comment.postComment(DOM.inputField.value)
-    clearInputField()
+    DOM.clearInputField()
+  }
+
+  function openOptions() {
+    Options()
+  }
+
+  function logout() {
+    Auth.logout()
   }
 
   function inputKeydown(e) {
     if (e.keyCode === 13) {
       DOM.submitBtn.click()
     }
-    updateCharLabel()
+    DOM.updateCharLabel()
   }
 
-  function updateCharLabel() {
-    setTimeout(()=>{
-      var curChars = DOM.inputField.value.length;
-      DOM.charLabel.textContent = curChars + "/140"
-      if (curChars === 140) {
-        DOM.charLabel.classList.add('full-char-label')
-      } else {
-        DOM.charLabel.classList.remove('full-char-label')
-      }
-    }, 0)
+  function loginPrompt() {
+    if (!Auth.isUserLoggedIn()) {
+      let el = document.createElement('div')
+      el.innerHTML = DOM.getLoginOverlay();
+      document.body.appendChild(el)
+      setTimeout(() => document.getElementsByClassName('login-overlay')[0].classList.remove('loading'), 200)
+      document.getElementById('welcome-login-btn').addEventListener('click', () => Auth.login())
+    }
   }
 
-  function testFunction() {
-    Group.createGroup({name: DOM.inputField.value})
-    clearInputField()
+  function closeLoginPrompt() {
+    let overlay = document.getElementsByClassName('login-overlay')[0];
+    if (!overlay) { return console.log('prompt not open') }
+    overlay.classList.add('loading')
+    setTimeout(() => overlay.parentElement.remove(), 500)
   }
 
-  function clearInputField() {
-    DOM.inputField.value = ''
-    updateCharLabel()
+  /**
+ * This function should be extracted out to wherever
+ *  the group functionality is made. ../groupview/groupview.js ?
+ */
+  function createGroup() {
+    Group.createGroup({ name: DOM.inputField.value })
+    DOM.clearInputField()
   }
 }
 
-window.onload = function() {
+window.onload = function () {
   initApp()
 }

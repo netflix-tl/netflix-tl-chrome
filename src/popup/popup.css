@@ -13,12 +13,22 @@ body {
 
 .popup-body {
 	position: relative;
+	height: 140px;
+	overflow: hidden;
+}
+.popup-inner {
+	transition: .5s all
 }
 
-.popup-main {
-
+.popup-inner-scroll {
+	transition-timing-function: ease-out;
+	transform: translate(0, -140px)
 }
 
+
+.popup-section {
+	height: 140px;
+}
 
 button {
 	font-family: inherit;
@@ -102,4 +112,49 @@ input:focus {
 
 .full-char-label {
 	color: #D32F2F;
+}
+
+.login-overlay {
+	top: 0;
+	left: 0;
+	height: 140px;
+	width: 215px;
+	position: absolute;
+	text-align: center;
+	background-color: white;
+	font-size: 1rem;
+	font-weight: 400;
+	transition: opacity .4s ease-out;
+	opacity: 1
+
+}
+.login-overlay.loading {
+	opacity: 0;
+}
+
+.google-btn {
+	padding: 0 6px 0 0;
+	border-radius: 2px;
+	background-color: #eee;
+	display: inline;
+	text-transform: none;
+	box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 2px 2px rgba(0,0,0,0.23);
+	
+
+}
+.google-btn:hover {
+	box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 4px 4px rgba(0,0,0,0.23);
+
+}
+
+.google-btn img {
+	padding: 0;
+	margin: 0;
+	vertical-align: middle;
+	text-align: left;
+
+}
+.google-btn div {
+	color: #333;
+	display: inline-block
 }
