@@ -13,30 +13,36 @@
 	<body>
 		<div class="popup-body">
 		<div class="popup-inner">
-			<div class="popup-section">
-				<div id="time-label" class="time-label"></div>
-				
-				<input id="input-field"
-						class="input-field" 
-						type = 'text'
-						maxlength='140' 
-						placeholder="insightful comment"
-						autofocus/>
-
-				<span class="char-label" id="char-label">0/140</span>
-				<div class="btn-bar">
-					<button id="submit-btn" 
-							class="submit-btn">Submit</button>
-					<button id="options-btn" class="gear-btn">
+			<div class="popup-section main-section">
+				<div class="top-bar">
+					<button class="options-btn">
 						<span>
 						<img src="/resources/gear.svg" class="gear-icon" alt="Options"></img>
 						</span>
 					</button>
+					<div class="comment-field">
+					<input id="input-field"
+							class="input-field"
+							type = 'text'
+							maxlength='140'
+							placeholder="insightful comment"
+							autofocus/>
+					<span class="char-label" id="char-label">0/140</span>
+					</div>
+					<button class="submit-btn">
+						<span>
+						<img src="/resources/send.svg" class="gear-icon" alt="Options"></img>
+						</span>
+					</button>
 				</div>
-				<button id="logout-btn" class="submit-btn">Logout</button>
+				
+
+				<div class="btn-bar">
+				</div>
+				<button class="text-btn logout-btn">Logout</button>
 			</div>
-			<div id="alt-page"></div>
-			</div>
+			<div class="popup-section options-section"></div>
+		</div>
 		</div>
 		
 

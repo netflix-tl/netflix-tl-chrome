@@ -1,8 +1,8 @@
 .back-btn {
     transition: box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
     border-radius: 1rem;
-    width: 1.6rem;
-    margin: 0 .5rem;
+    width: 1.7rem;
+    margin: .4rem .5rem;
 }
 .back-btn:hover {
     background-color: rgba(0, 0, 0, .1);
