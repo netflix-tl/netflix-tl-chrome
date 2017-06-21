@@ -2,10 +2,13 @@ import html from './options.html'
 import css from './options.css'
 
 export default function Options() {
-    document.getElementById('alt-page').innerHTML = html
-    document.getElementsByClassName('popup-inner')[0].classList.add('popup-inner-scroll')
-    document.getElementById('back-btn').addEventListener('click', () => {
+    document.getElementsByClassName('options-section')[0].innerHTML = html
+    document.getElementsByClassName('main-section')[0].classList.add('left')
+    document.getElementsByClassName('options-section')[0].classList.add('left');
+    document.getElementsByClassName('back-btn')[0].addEventListener('click', () => {
         console.log('back')
-        document.getElementsByClassName('popup-inner')[0].classList.remove('popup-inner-scroll')
+        document.getElementsByClassName('main-section')[0].classList.remove('left')
+        document.getElementsByClassName('options-section')[0].classList.remove('left')
+        
     })
 }

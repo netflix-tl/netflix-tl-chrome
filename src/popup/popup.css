@@ -13,21 +13,19 @@ body {
 
 .popup-body {
 	position: relative;
-	height: 140px;
 	overflow: hidden;
 }
-.popup-inner {
-	transition: .5s all
-}
-
-.popup-inner-scroll {
-	transition-timing-function: ease-out;
-	transform: translate(0, -140px)
-}
-
 
 .popup-section {
 	height: 140px;
+	width: 250px;
+	transition: transform .3s;
+	transition-timing-function: ease-out;
+
+}
+
+.main-section.left {
+	transform: translate(-100%,0);
 }
 
 button {
@@ -49,7 +47,7 @@ button {
 	width: 100%;
 }
 
-.submit-btn {
+.text-btn {
 	height: 32px;
 	width: 80px;
 	margin: 5px 5px;
@@ -60,15 +58,24 @@ button {
 	padding: 0 10px
 }
 
-
-.gear-btn {
-	float: right;
+.submit-btn {
+	display: inline-block;
+	vertical-align: top;
 	height: 32px;
 	width: 32px;
 	margin: 5px 5px;
 }
 
-.gear-btn span {
+.options-btn {
+	display: inline-block;
+	vertical-align: top;
+	height: 32px;
+	width: 32px;
+	margin: 5px 5px;
+	border-radius: 1rem;
+}
+
+.options-btn span {
 	display: inline-block;
 	vertical-align: middle;
 	line-height: 14px;
@@ -88,25 +95,12 @@ button:active {
 	background-color: rgba(0, 0, 0, .2);
 }
 
-
-input {
-	margin: 5px 5px;
-	padding: 4px 6px;
-	outline: 0;
-	border: 0;
-	border-bottom: 2px solid #f3f3f3;
-	transition: border-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-
-input:focus {
-	border-color: #D32F2F;
-}
-
 .time-label, .char-label {
 	margin: 1px 5px;
 }
 
 .char-label {
+	display: block;
 	transition: color .1s;
 }
 
@@ -118,7 +112,6 @@ input:focus {
 	top: 0;
 	left: 0;
 	height: 140px;
-	width: 200px;
 	position: absolute;
 	text-align: center;
 	background-color: white;
@@ -157,4 +150,35 @@ input:focus {
 .google-btn div {
 	color: #333;
 	display: inline-block
+}
+
+.options-section {
+	position: absolute;
+	top: 0;
+	left: 0;
+	transform: translate(100%, 0);
+}
+
+.options-section.left {
+	transform: translate(0,0);
+}
+.input-field {
+	width: 100%;
+	margin: 5px auto;
+	padding: 4px 6px;
+	outline: 0;
+	border: 0;
+	border-bottom: 2px solid #f3f3f3;
+	transition: border-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.input-field:focus {
+	border-color: #D32F2F;
+}
+
+.comment-field {
+	display: inline-block;
+	width: 60%;
+	margin: 0 auto;
+
 }

@@ -4,16 +4,16 @@ export default class popupDOM {
     this.charLabel = document.getElementById('char-label')
     this.timeLabel = document.getElementById('time-label')
     this.messageText = document.getElementById('message-text')
-    this.submitBtn = document.getElementById('submit-btn')
-    this.optionsBtn = document.getElementById('options-btn')
-    this.logout = document.getElementById('logout-btn')
+    this.submitBtn = document.getElementsByClassName('submit-btn')[0]
+    this.optionsBtn = document.getElementsByClassName('options-btn')[0]
+    this.logout = document.getElementsByClassName('logout-btn')[0]
     this.testBtn = document.getElementById('test-btn')
     this.popupInner = document.getElementsByClassName('popup-inner')[0]
   }
 
   getLoginOverlay() {
     return `
-      <div class="login-overlay loading">
+      <div class="popup-section login-overlay loading">
         <div><br>Let's get started!</div><br>
         <button id="welcome-login-btn" class="google-btn"> 
         <img src="/resources/google_icon.svg"></img>
