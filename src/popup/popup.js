@@ -1,5 +1,5 @@
 import style from './popup.css'
-import * as Auth from '../Model/Auth.js'
+import * as User from '../Model/User.js'
 import PopupDOM from './popup.dom.js'
 import * as Comment from '../Model/Comment.js'
 import * as Group from '../Model/Group.js'
@@ -10,11 +10,11 @@ function initApp() {
   let DOM = new PopupDOM()
 
   /**
-   * closeLoginPrompt and loginPrompt are passed to Auth.js,
+   * closeLoginPrompt and loginPrompt are passed to User.js,
    *   and are called when the login/logout status of the 
    *   user changes.
    */
-  Auth.start(closeLoginPrompt, loginPrompt)
+  User.start(closeLoginPrompt, loginPrompt)
 
   DOM.submitBtn.addEventListener('click', submit)
   DOM.optionsBtn.addEventListener('click', openOptions)
@@ -32,7 +32,7 @@ function initApp() {
   }
 
   function logout() {
-    Auth.logout()
+    User.logout()
   }
 
   function inputKeydown(e) {
@@ -43,12 +43,12 @@ function initApp() {
   }
 
   function loginPrompt() {
-    if (!Auth.isUserLoggedIn()) {
+    if (!User.isUserLoggedIn()) {
       let el = document.createElement('div')
       el.innerHTML = DOM.getLoginOverlay();
       document.body.appendChild(el)
       setTimeout(() => document.getElementsByClassName('login-overlay')[0].classList.remove('loading'), 200)
-      document.getElementById('welcome-login-btn').addEventListener('click', () => Auth.login())
+      document.getElementById('welcome-login-btn').addEventListener('click', () => User.login())
     }
   }
 
