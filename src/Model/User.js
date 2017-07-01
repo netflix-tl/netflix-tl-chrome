@@ -77,7 +77,16 @@ function startAuth(interactive) {
             startAuth(interactive);
           });
         }
-      });
+      }).then(function(user) {
+            let db = firebase.database();
+            db.ref('/users/' + user.uid).once('value').then(function(resp) {
+            if(!resp.exists()) { // users object not created
+                db.ref('/users/' + user.uid).set({
+                groups: { 0: true }
+                })
+            }
+            })
+        });
     } else {
       console.error('The OAuth Token was null');
     }
