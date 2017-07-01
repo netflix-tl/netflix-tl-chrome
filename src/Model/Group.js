@@ -1,3 +1,5 @@
+import firebase from 'firebase'
+
 export function createGroup({
     name = 'DEFAULTNAME',
     memberCount = 0,

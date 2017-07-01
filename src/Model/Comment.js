@@ -1,3 +1,5 @@
+import firebase from 'firebase'
+
 export function postComment(comment) {
     console.log("Comment.postComment")
     const user = firebase.auth().currentUser
