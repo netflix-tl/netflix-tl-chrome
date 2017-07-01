@@ -5,7 +5,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
     entry: {
         popup: './src/popup/popup.js',
-        //content: './src/content/content.js',
+        content: './src/content/content.js',
         background: './src/background/background.js'
     },
     output: {
@@ -46,29 +46,19 @@ module.exports = {
         inline: false
     },
     plugins: [new HtmlWebpackPlugin({
-        name: 'timely-app',
+        name: 'popup',
         template: 'src/popup/popup.html',
+        chunks: ['popup'],
         filename: 'popup.html'
     }), new HtmlWebpackPlugin({
         name: 'background',
         filename: 'background.html',
+        chunks: ['background'],
         template: 'src/background/background.html'
-    }), new HtmlWebpackPlugin({
-        name: 'dev-app',
-        filename: 'index.html',
-        template: 'src/popup/popup.html'
     }), new CopyWebpackPlugin([
         {from: 'manifest.json', to: 'manifest.json'},
-        {from: 'resources', to: 'resources'}
+        {from: 'resources', to: 'resources'},
+        {from: 'src/content/content.css', to: 'resources/content.css'}
     ])
-
-
     ]
-    // plugins: [new CopyWebpackPlugin([
-    //     {from: 'src/popup.html'},
-    //     {from: 'src/background.html'},
-    //     {from: 'src/popup.css'},
-    //     {from: 'resources', to: 'resources'}
-    // ]
-    // )]
 }

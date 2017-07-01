@@ -10,19 +10,21 @@
   },
   "background": {
   	"page": "background.html"
-    //"scripts": ["js/jquery-2.0.3.min.js", "background.js"]
   },
   "permissions": [
     "identity"
   ],
-  /*"content_scripts": [
+  "content_scripts": [
     {
       "run_at": "document_end",
-      "matches": ["https://www.netflix.com/watch/*", "http://www.netflix.com/watch/*",
-      "https://www.youtube.com/watch*", "http://www.youtube.com/watch*"],
-      "js": ["js/jquery-2.0.3.min.js", "index.js"]
+      "matches": ["https://www.netflix.com/watch/*", "http://www.netflix.com/watch/*"],
+      "js": ["content.js"],
+      "css": ["resources/content.css"]
     }
-  ],*/
+  ],
+  "web_accessible_resources": [
+    "resources/*"
+  ],
 
   "content_security_policy":"script-src 'self' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com; object-src 'self'",
   "oauth2": {
