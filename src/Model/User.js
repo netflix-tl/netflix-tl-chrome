@@ -20,7 +20,7 @@ export function isUserLoggedIn() {
 }
 
 // Initialize Firebase
-export function start(onLogin, onLogoff) {
+export function initializeFirebase(onLogin, onLogoff) {
   const config = {
       apiKey: "AIzaSyDmdXL5QSnAv4h1xIx4YUkuoAoGsN83rzo",
       authDomain: "timely-vc.firebaseapp.com",

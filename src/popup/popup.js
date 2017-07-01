@@ -14,7 +14,7 @@ function initApp() {
    *   and are called when the login/logout status of the 
    *   user changes.
    */
-  User.start(closeLoginPrompt, loginPrompt)
+  User.initializeFirebase(closeLoginPrompt, loginPrompt)
 
   DOM.submitBtn.addEventListener('click', submit)
   DOM.optionsBtn.addEventListener('click', openOptions)
