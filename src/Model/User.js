@@ -19,6 +19,30 @@ export function isUserLoggedIn() {
   return !!firebase.auth().currentUser
 }
 
+/**
+ * Returns a promise that resolves to an array of the user's group IDs.
+ */
+export function getMemberGroups() {
+  let db = firebase.database().ref()
+  let promise = new Promise(function(resolve) {
+    db.child('users').child(getCurrentUser().uid).child('groups').once('value')
+    .then(function(groups) {
+      if(groups.exists()) {
+      resolve(Object.keys(groups.val()))
+      } else {
+        resolve([])
+      }
+    })
+  })
+  return promise
+}
+
+export function getCurrentUser() {
+  return firebase.auth().currentUser
+}
+
+window.getGroups = getMemberGroups
+
 // Initialize Firebase
 export function initializeFirebase(onLogin, onLogoff) {
   const config = {
@@ -77,16 +101,7 @@ function startAuth(interactive) {
             startAuth(interactive);
           });
         }
-      }).then(function(user) {
-            let db = firebase.database();
-            db.ref('/users/' + user.uid).once('value').then(function(resp) {
-            if(!resp.exists()) { // users object not created
-                db.ref('/users/' + user.uid).set({
-                groups: { 0: true }
-                })
-            }
-            })
-        });
+      })
     } else {
       console.error('The OAuth Token was null');
     }
