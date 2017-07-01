@@ -1,9 +1,10 @@
-import Options from './options/options.js'
-import PopupDOM from './popup.dom.js'
-import style from './popup.css'
-import * as User from '../model/User.js'
-import * as Comment from '../model/Comment.js'
-import * as Group from '../model/Group.js'
+import Options from './options/options'
+import PopupDOM from './popup.dom'
+import * as User from '../model/User'
+import * as Comment from '../model/Comment'
+import * as Group from '../model/Group'
+import './popup.css'
+
 
 function initApp() {
 

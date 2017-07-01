@@ -1,5 +1,5 @@
 import html from './options.html'
-import css from './options.css'
+import './options.css'
 
 export default function Options() {
     document.getElementsByClassName('options-section')[0].innerHTML = html

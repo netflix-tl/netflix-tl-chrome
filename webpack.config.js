@@ -33,14 +33,14 @@ module.exports = {
             test: /\.css$/,
             exclude: /node_modules/,
             use: [
-                {loader: 'style-loader/url?sourceMaps'},
-                {loader: 'file-loader'}
+                {loader: 'style-loader'},
+                {loader: 'css-loader'}
             ]
         }
         ]
     },
     resolve: {
-        extensions: ['js']
+        extensions: ['.js']
     },
     devServer: {
         inline: false
