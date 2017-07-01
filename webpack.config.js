@@ -3,9 +3,13 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: './src/app.js',
+    entry: {
+        popup: './src/popup/popup.js',
+        //content: './src/content/content.js',
+        background: './src/background/background.js'
+    },
     output: {
-        filename: 'bundle.js',
+        filename: '[name].js',
         path: path.resolve(__dirname, "dist")
     },
     devtool: 'inline-source-map',
