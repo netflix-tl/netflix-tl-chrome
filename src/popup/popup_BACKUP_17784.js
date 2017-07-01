@@ -2,6 +2,8 @@ import style from './popup.css'
 import * as User from '../Model/User.js'
 import Options from './options/options.js'
 import PopupDOM from './popup.dom.js'
+import style from './popup.css'
+import * as Auth from '../model/Auth.js'
 import * as Comment from '../model/Comment.js'
 import * as Group from '../model/Group.js'
 

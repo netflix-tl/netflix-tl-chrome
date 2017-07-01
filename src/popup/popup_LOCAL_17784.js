@@ -1,9 +1,9 @@
 import style from './popup.css'
 import * as User from '../Model/User.js'
-import Options from './options/options.js'
 import PopupDOM from './popup.dom.js'
-import * as Comment from '../model/Comment.js'
-import * as Group from '../model/Group.js'
+import * as Comment from '../Model/Comment.js'
+import * as Group from '../Model/Group.js'
+import Options from '../options/options.js'
 
 function initApp() {
 

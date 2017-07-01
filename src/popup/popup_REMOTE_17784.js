@@ -1,7 +1,7 @@
-import style from './popup.css'
-import * as User from '../Model/User.js'
 import Options from './options/options.js'
 import PopupDOM from './popup.dom.js'
+import style from './popup.css'
+import * as Auth from '../model/Auth.js'
 import * as Comment from '../model/Comment.js'
 import * as Group from '../model/Group.js'
 
@@ -10,11 +10,11 @@ function initApp() {
   let DOM = new PopupDOM()
 
   /**
-   * closeLoginPrompt and loginPrompt are passed to User.js,
+   * closeLoginPrompt and loginPrompt are passed to Auth.js,
    *   and are called when the login/logout status of the 
    *   user changes.
    */
-  User.initializeFirebase(closeLoginPrompt, loginPrompt)
+  Auth.start(closeLoginPrompt, loginPrompt)
 
   DOM.submitBtn.addEventListener('click', submit)
   DOM.optionsBtn.addEventListener('click', openOptions)
@@ -32,7 +32,7 @@ function initApp() {
   }
 
   function logout() {
-    User.logout()
+    Auth.logout()
   }
 
   function inputKeydown(e) {
@@ -43,12 +43,12 @@ function initApp() {
   }
 
   function loginPrompt() {
-    if (!User.isUserLoggedIn()) {
+    if (!Auth.isUserLoggedIn()) {
       let el = document.createElement('div')
       el.innerHTML = DOM.getLoginOverlay();
       document.body.appendChild(el)
       setTimeout(() => document.getElementsByClassName('login-overlay')[0].classList.remove('loading'), 200)
-      document.getElementById('welcome-login-btn').addEventListener('click', () => User.login())
+      document.getElementById('welcome-login-btn').addEventListener('click', () => Auth.login())
     }
   }
 
