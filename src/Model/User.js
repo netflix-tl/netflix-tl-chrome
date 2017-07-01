@@ -24,10 +24,10 @@ export function isUserLoggedIn() {
  */
 export function getMemberGroups() {
   let db = firebase.database().ref()
-  let promise = new Promise((resolve) => {
+  let promise = new Promise(resolve => {
     db.child('users').child(getCurrentUser().uid)
     .child('groups').once('value')
-    .then((groups) => {
+    .then(groups => {
       if(groups.exists()) {
         resolve(Object.keys(groups.val()))
       } else {
