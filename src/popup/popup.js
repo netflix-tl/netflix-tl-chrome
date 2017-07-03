@@ -1,8 +1,18 @@
+
+// import Options from './options/options.js'
+// import Groups from './groups/groups.js'
+// import PopupDOM from './popup.dom.js'
+// import style from './popup.css'
+// import * as User from '../model/User.js'
+// import * as Comment from '../model/Comment.js'
+// import * as Group from '../model/Group.js'
+
 import Options from './options/options'
 import PopupDOM from './popup.dom'
 import * as User from '../model/User'
 import * as Comment from '../model/Comment'
 import * as Group from '../model/Group'
+import Groups from './groups/groups'
 import './popup.css'
 
 
@@ -21,11 +31,15 @@ function initApp() {
   DOM.optionsBtn.addEventListener('click', openOptions)
   DOM.logout.addEventListener('click', logout)
   DOM.inputField.addEventListener('keydown', inputKeydown)
-
+  DOM.groupsBtn.addEventListener('click', openGroups)
 
   function submit() {
     Comment.postComment(DOM.inputField.value)
     DOM.clearInputField()
+  }
+
+  function openGroups() {
+    Groups()
   }
 
   function openOptions() {

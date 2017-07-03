@@ -9,6 +9,8 @@ export default class popupDOM {
     this.logout = document.getElementsByClassName('logout-btn')[0]
     this.testBtn = document.getElementById('test-btn')
     this.popupInner = document.getElementsByClassName('popup-inner')[0]
+    this.groupsBtn = document.getElementsByClassName('groups-btn')[0]
+    this.groupsLabel = document.getElementsByClassName('groups-label')[0]
   }
 
   getLoginOverlay() {

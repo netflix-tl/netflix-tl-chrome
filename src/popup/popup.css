@@ -41,6 +41,10 @@ body {
 	transform: translate(-100%,0);
 }
 
+.main-section.up {
+	transform: translate(0, -100%);
+}
+
 button {
 	font-family: inherit;
 	font-weight: 500;
@@ -55,9 +59,15 @@ button {
 	transition: box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
+.comment-bar {
+	display: inline-block;
+	width: 100%;
+}
+
 .btn-bar {
 	display: inline-block;
 	width: 100%;
+	text-align: center;
 }
 
 .text-btn {
@@ -95,6 +105,46 @@ button {
 }
 
 .gear-icon {
+	display: inline-block;
+	vertical-align: middle;
+	line-height: 14px;
+}
+
+.groups-btn {
+	display: inline-block;
+	vertical-align: top;
+	height: 32px;
+	width: 32px;
+	margin: 5px 5px;
+	border-radius: 1rem;
+	float: right;
+}
+
+.top-bar {
+	border-radius:2px;
+}
+
+
+.groups-btn span {
+		display: inline-block;
+}
+
+.groups {
+	float: right;
+}
+
+.main-section img {
+	opacity: 0.5;
+}
+
+.groups-label {
+	line-height: 37px;
+	font-size: 15px;
+	margin: 10px;
+	opacity: 0.5;
+}
+
+.groups-icon {
 	display: inline-block;
 	vertical-align: middle;
 	line-height: 14px;
@@ -175,6 +225,18 @@ button:active {
 .options-section.left {
 	transform: translate(0,0);
 }
+
+.groups-section {
+	position: absolute;
+	top: 0;
+	left: 0;
+	transform: translate(0, 100%);
+}
+
+.groups-section.up {
+	transform: translate(0,0);
+}
+
 .input-field {
 	width: 100%;
 	margin: 5px auto;
