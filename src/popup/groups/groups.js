@@ -1,8 +1,8 @@
 import html from './groups.html'
 import css from './groups.css'
 import GroupsDOM from './groups.dom.js'
-import * as Group from '../../Model/Group.js'
-import * as User from '../../Model/User.js'
+import * as Group from '../../model/Group.js'
+import * as User from '../../model/User.js'
 
 export default function Groups() {
     let dom = new GroupsDOM(joinGroup)

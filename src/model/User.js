@@ -1,4 +1,5 @@
 
+import firebase from 'firebase'
 
 export function login() {
     if (!firebase.auth().currentUser) {
