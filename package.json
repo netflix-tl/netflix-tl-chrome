@@ -35,6 +35,7 @@
     "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
-    "firebase": "^4.1.3"
+    "firebase": "^4.1.3",
+    "material-design-icons-iconfont": "^3.0.3"
   }
 }

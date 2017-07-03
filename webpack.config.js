@@ -31,11 +31,11 @@ module.exports = {
         },
         {
             test: /\.css$/,
-            exclude: /node_modules/,
-            use: [
-                {loader: 'style-loader'},
-                {loader: 'css-loader'}
-            ]
+            loaders: ['style-loader', 'css-loader']
+        },
+         {
+            test   : /\.(ttf|eot|svg|woff|woff2)$/,
+            loader : 'file-loader'
         }
         ]
     },

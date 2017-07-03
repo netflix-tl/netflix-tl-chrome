@@ -1,9 +1,11 @@
+
+import './popup.css'
+import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import Options from './options/options'
 import PopupDOM from './popup.dom'
 import * as User from '../model/User'
 import * as Comment from '../model/Comment'
 import * as Group from '../model/Group'
-import './popup.css'
 
 
 function initApp() {
