@@ -97,19 +97,6 @@ button:active {
 	background-color: rgba(0, 0, 0, .2);
 }
 
-.time-label, .char-label {
-	margin: 1px 5px;
-}
-
-.char-label {
-	display: block;
-	transition: color .1s;
-}
-
-.full-char-label {
-	color: #D32F2F;
-}
-
 .login-overlay {
 	top: 0;
 	left: 0;
