@@ -1,0 +1,44 @@
+.main-page {
+
+	.time-label, .char-label {
+		margin: 1px 5px;
+	}
+
+	.char-label {
+		display: block;
+		transition: color .1s;
+	}
+
+	.full-char-label {
+		color: #e57373;
+	}
+	#comment-input {
+		height: 2.5rem;
+		margin-bottom: 4px;
+	}
+	.comment-field {
+		display: inline-block;
+		width: 60%;
+		margin: 0 auto;
+
+	}
+
+	.btn-bar {
+		display: inline-block;
+		width: 100%;
+	}
+
+	.text-btn {
+		height: 32px;
+		width: 80px;
+		margin: 5px 5px;
+	}
+
+	.submit-btn {
+		display: inline-block;
+		vertical-align: top;
+		height: 32px;
+		width: 32px;
+		margin: 5px 5px;
+	}
+}
