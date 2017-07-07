@@ -30,8 +30,8 @@ module.exports = {
             loader: 'html-loader'
         },
         {
-            test: /\.css$/,
-            loaders: ['style-loader', 'css-loader']
+            test: /\.(scss|css)$/,
+            loaders: ['style-loader', 'css-loader', 'sass-loader']
         },
          {
             test   : /\.(ttf|eot|svg|woff|woff2)$/,

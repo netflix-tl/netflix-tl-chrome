@@ -1,20 +1,19 @@
-import './main.css'
+import './main.scss'
 import html from './main.html'
 
 export default class MainDOM {
     constructor() {
         let page = document.getElementsByTagName('main')[0]
         page.innerHTML = html
-        console.log(document)
 
-        this.inputField = document.getElementById('input-field')
-        this.charLabel = document.getElementById('char-label')
-        this.timeLabel = document.getElementById('time-label')
-        this.messageText = document.getElementById('message-text')
+        this.inputField = document.getElementById('comment-input')
+        this.charLabel = document.getElementsByClassName('char-label')[0]
+        this.timeLabel = document.getElementsByClassName('time-label')[0]
+        this.messageText = document.getElementsByClassName('message-text')[0]
         this.submitBtn = document.getElementsByClassName('submit-btn')[0]
         this.optionsBtn = document.getElementsByClassName('options-btn')[0]
         this.logout = document.getElementsByClassName('logout-btn')[0]
-        this.testBtn = document.getElementById('test-btn')
+        this.testBtn = document.getElementsByClassName('test-btn')[0]
         this.popupInner = document.getElementsByClassName('popup-inner')[0]
     }
 
@@ -32,7 +31,7 @@ export default class MainDOM {
 
     updateCharLabel() {
         setTimeout(() => {
-            let curChars = inputField.value.length;
+            let curChars = this.inputField.value.length;
             this.charLabel.textContent = curChars + "/140"
             if (curChars === 140) {
                 this.charLabel.classList.add('full-char-label')
