@@ -87,6 +87,12 @@ export function onOnlineUserCount(callback) {
     });
 }
 
+export function joinGroup(groupId) {
+    const userRef = firebase.database().ref().child('users').child(getCurrentUser().uid)
+    return userRef.child('groups').child(groupId).set(true)
+}
+
+
 // Initialize Firebase
 export function initializeFirebase(onLogin, onLogoff) {
   const config = {

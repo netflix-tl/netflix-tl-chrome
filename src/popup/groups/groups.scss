@@ -1,0 +1,58 @@
+.up-btn {
+  transition: box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  border-radius: 1rem;
+  width: 1.7rem;
+  margin: .4rem .5rem;
+  position: absolute;
+  right: 5px;
+  top: 0px;
+  width: 40px;
+  padding: 7px;
+}
+.up-btn:hover {
+  background-color: rgba(0, 0, 0, .1);
+}
+.up-btn:active {
+  background-color: rgba(0, 0, 0, .2);
+}
+
+.groups-list {
+  overflow-y: scroll;
+  //padding: 5px;
+  height: 200px;
+  width: 300px;
+  margin-top: 45px;
+}
+.groups-section {
+  height: 190px;
+}
+
+.scroll::-webkit-scrollbar {
+  width: 5px;
+}
+
+.scroll::-webkit-scrollbar-track {
+  background: #ddd;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background: #666;
+}
+
+.preloader-wrapper {
+  width: 20px;
+}
+
+.complete {
+  height: 0px;
+  padding: 0px;
+}
+
+//.groups-list .list-item {
+//  display: flex;
+//  flex-direction: row;
+//  padding: 3px;
+//  min-height: 35px;
+//  transition: box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+//  justify-content: flex-start;
+//}
