@@ -23,6 +23,10 @@
 
 	}
 
+	.comment-bar {
+		text-align: center;
+	}
+
 	.btn-bar {
 		display: inline-block;
 		width: 100%;
@@ -40,6 +44,10 @@
 		height: 32px;
 		width: 32px;
 		margin: 5px 5px;
+	}
+
+	.groups-btn {
+		float:right;
 	}
 }
 
