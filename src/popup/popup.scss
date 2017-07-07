@@ -36,8 +36,8 @@ body {
 }
 
 .popup-section {
-	height: 140px;
-	width: 250px;
+	height: 200px;
+	width: 300px;
 	transition: transform .3s;
 	transition-timing-function: ease-out;
 }
@@ -71,9 +71,12 @@ body {
 	&:hover {
 		background-color: rgba(0, 0, 0, .1);
 	}
-	&:active {
-	background-color: rgba(0, 0, 0, .2);
-}
+	&:active, &:active:focus{
+		background-color: rgba(0, 0, 0, .2);
+	}
+	&:focus {
+		background-color: rgba(0, 0, 0, .05);
+	}
 
 }
 .text-btn {
@@ -90,9 +93,9 @@ body {
 	@extend .vc-btn;
 	display: inline-block;
 	vertical-align: top;
-	height: 32px;
-	width: 32px;
-	border-radius: 2rem;
+	height: 40px;
+	width: 40px;
+	border-radius: 20px;
 
 	i {
 		vertical-align: middle;
@@ -104,51 +107,7 @@ body {
 	}
 }
 
-i {
+i.material-icons {
 	vertical-align: middle;
 	color: #3b3b3b;
-}
-
-
-//TODO: Extract to seperate login module
-.login-overlay {
-	top: 0;
-	left: 0;
-	height: 140px;
-	position: absolute;
-	text-align: center;
-	background-color: white;
-	font-size: 1rem;
-	font-weight: 400;
-	transition: opacity .4s ease-out;
-	opacity: 1
-}
-
-.login-overlay.loading {
-	opacity: 0;
-}
-
-.google-btn {
-	padding: 0 6px 0 0;
-	border-radius: 2px;
-	background-color: #eee;
-	display: inline;
-	text-transform: none;
-	box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 2px 2px rgba(0,0,0,0.23);
-}
-
-.google-btn:hover {
-	box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 4px 4px rgba(0,0,0,0.23);
-}
-
-.google-btn img {
-	padding: 0;
-	margin: 0;
-	vertical-align: middle;
-	text-align: left;
-}
-
-.google-btn div {
-	color: #333;
-	display: inline-block
 }
