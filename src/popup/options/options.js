@@ -1,4 +1,4 @@
-import OptionsDOM from "./options.dom"
+import OptionsDOM from "./options.dom.js"
 
 export default function Options() {
     let DOM = new OptionsDOM()

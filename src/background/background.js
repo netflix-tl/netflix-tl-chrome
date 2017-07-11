@@ -1,51 +1,36 @@
-/*  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyDmdXL5QSnAv4h1xIx4YUkuoAoGsN83rzo",
-    authDomain: "timely-vc.firebaseapp.com",
-    databaseURL: "https://timely-vc.firebaseio.com",
-    projectId: "timely-vc",
-    storageBucket: "timely-vc.appspot.com",
-    messagingSenderId: "418211874508"
-  };
-  firebase.initializeApp(config);
+import * as User from '../model/User'
+import * as Group from '../model/Group'
+import * as Comment from '../model/Comment'
 
-  function initApp() {
-    firebase.auth().onAuthStateChanged(function(user){
-      console.log('background.js detected state change', user)
-    })
+User.initializeFirebase(loggedIn, () => console.log('you are logged out'));
+
+function loggedIn() {
+  console.log("you are logged in")
+  window.Group = Group
+  window.User = User
+  window.Comment = Comment
+}
+
+
+chrome.runtime.onMessage.addListener(
+  (request, sender, sendResponse) => {
+    console.log(sender.tab ?
+      "from content.js" + sender.tab.url :
+      "from extension:"
+    )
+
+    if (request.loaded) {
+      // content.js says netflix video is loaded
+      videoId = request.videoId
+      User.getCurrentGroup()
+        .then(groupId =>
+          Comment.getComments(groupId, videoId)
+        )
+        .then(comments => {
+          sendResponse(comments)
+        })
+      return true  // required for async response
+    }
   }
+)
 
-  window.onload = function(){
-    initApp()
-  }*/
-
-  /*
-
-
-    groups:{
-      comments: {
-        $videoId:{
-          one: {
-              user:
-              comment:
-              timestamp:
-          }
-          two:
-          three:
-        }
-      }
-
-    }
-    comments: {
-      $videoId:{
-          one:
-          two:
-          three:
-      }
-    }
-
-
-
-
-
-  */

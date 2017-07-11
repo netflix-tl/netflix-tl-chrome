@@ -1,11 +1,11 @@
 import firebase from 'firebase'
 
 export function login() {
-    if (!firebase.auth().currentUser) {
-        startAuth(true);
-    } else {
-        console.log("already signed in: ", firebase.auth().currentUser)
-    }
+  if (!firebase.auth().currentUser) {
+    startAuth(true);
+  } else {
+    console.log("already signed in: ", firebase.auth().currentUser)
+  }
 }
 
 export function logout() {
@@ -22,58 +22,99 @@ export function isUserLoggedIn() {
 }
 
 /**
- * Returns a promise that resolves to an array of the user's group IDs.
+ * Returns current group of the user.
+ * Assumes can only join one group at a time.
  */
-export function getMemberGroups() {
-  let db = firebase.database().ref()
-  let promise = new Promise(resolve => {
-    db.child('users').child(getCurrentUser().uid)
-    .child('groups').once('value')
-    .then(groups => {
-      if(groups.exists()) {
-        resolve(Object.keys(groups.val()))
-      } else {
-        resolve([])
-      }
+export function getCurrentGroup() {
+  let uid = firebase.auth().currentUser.uid
+  let ref = firebase.database().ref(`users/${uid}/group`)
+  return ref.once('value')
+    .then(snapshot => snapshot.val())
+}
+
+/**
+ * Makes the user join a group with given groupId.
+ * @param {number} groupId 
+ */
+export function joinGroup(groupId) {
+  let uid = firebase.auth().currentUser.uid
+  let data = {}
+  data[`users/${uid}/group`] = groupId
+  data[`groups/members/${groupId}/${uid}`] = true
+
+
+  return firebase.database().ref().update(data)
+    .then(() => {
+      console.log("SUCCESS: joinGroup")
+      firebase.database()
+        .ref(`groups/headers/${groupId}/memberCount`)
+        .transaction(count => (count || 0) + 1)
     })
-  })
-  return promise
+    .catch(err => "ERROR: " + err)
 }
 
-export function getCurrentUser() {
-  return firebase.auth().currentUser
+/**
+ * Leaves the current group
+ */
+export function leaveCurrentGroup() {
+  let uid = firebase.auth().currentUser.uid
+  return getCurrentGroup()
+    .then(groupId => {
+      let data = {}
+      data[`users/${uid}/group`] = false
+      data[`groups/members/${groupId}/${uid}`] = false
+      firebase.database().ref().update(data)
+      return groupId
+    })
+    .then((groupId) => {
+      firebase.database()
+        .ref(`groups/headers/${groupId}/memberCount`)
+        .transaction(count => (count || 1) - 1)
+    })
+    .catch(err => console.log(err))
 }
 
-window.getGroups = getMemberGroups
+/**
+ * Calls fn when # of online users changes
+ * @param {function} onValue callback
+ */
+export function onOnlineUserCount(callback) {
+  // Number of online users is the number of objects in the presence list.
+  firebase.database().ref(`onlineUsers`)
+    .on("value", function (snap) {
+      console.log("# of online users = " + snap.numChildren());
+      callback && callback(snap.numChildren())
+    });
+}
 
 // Initialize Firebase
 export function initializeFirebase(onLogin, onLogoff) {
   const config = {
-      apiKey: "AIzaSyDmdXL5QSnAv4h1xIx4YUkuoAoGsN83rzo",
-      authDomain: "timely-vc.firebaseapp.com",
-      databaseURL: "https://timely-vc.firebaseio.com",
-      projectId: "timely-vc",
-      storageBucket: "timely-vc.appspot.com",
-      messagingSenderId: "418211874508"
-    }
+    apiKey: "AIzaSyDmdXL5QSnAv4h1xIx4YUkuoAoGsN83rzo",
+    authDomain: "timely-vc.firebaseapp.com",
+    databaseURL: "https://timely-vc.firebaseio.com",
+    projectId: "timely-vc",
+    storageBucket: "timely-vc.appspot.com",
+    messagingSenderId: "418211874508"
+  }
   firebase.initializeApp(config)
-  firebase.auth().onAuthStateChanged(function(user) {
-    //console.log('popup.js detected state change')
+  firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
-      console.log('state logged in')
+      // Add user to onlineUsers list when online.
+      let userRef = firebase.database().ref(`onlineUsers`).push()
+      firebase.database().ref(`.info/connected`)
+        .on("value", function (snap) {
+          if (snap.val()) {
+            // Remove ourselves when we disconnect.
+            userRef.onDisconnect().remove();
+            userRef.set(true);
+          }
+        });
       onLogin(user)
-      //document.getElementById('user-content').innerText = JSON.stringify(user, null, "  ")
-      //loginBtn.textContent = 'Sign Out';
-      //sessionUser = user
     } else {
-      console.log('state logged out')
       onLogoff()
-      //loginBtn.textContent = 'Sign In'
-      //document.getElementById('user-content').innerText = null;
     }
-    //loginBtn.disabled = false
   })
-  setTimeout(() => console.log(firebase.auth().currentUser),1000)
 }
 
 /**
@@ -84,7 +125,7 @@ function startAuth(interactive) {
   // Request an OAuth token from the Chrome Identity API.
   chrome.identity.getAuthToken({
     interactive: !!interactive
-  }, function(token) {
+  }, function (token) {
     if (chrome.runtime.lastError && !interactive) {
       console.log('It was not possible to get a token programmatically.');
     } else if (chrome.runtime.lastError) {
@@ -93,14 +134,14 @@ function startAuth(interactive) {
     } else if (token) {
       console.log(token)
       console.log("token")
-        // Authrorize Firebase with the OAuth Access Token.
+      // Authrorize Firebase with the OAuth Access Token.
       var credential = firebase.auth.GoogleAuthProvider.credential(null, token);
-      firebase.auth().signInWithCredential(credential).catch(function(error) {
+      firebase.auth().signInWithCredential(credential).catch(function (error) {
         // The OAuth token might have been invalidated. Lets' remove it from cache.
         if (error.code === 'auth/invalid-credential') {
           chrome.identity.removeCachedAuthToken({
             token: token
-          }, function() {
+          }, function () {
             startAuth(interactive);
           });
         }

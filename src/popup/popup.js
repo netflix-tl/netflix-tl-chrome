@@ -9,4 +9,4 @@ import 'material-design-icons-iconfont/dist/material-design-icons.scss'
 
 import './popup.scss'
 import './popup.html'
-import './main/main'
+import './main/main.js'

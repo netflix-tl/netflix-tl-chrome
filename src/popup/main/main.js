@@ -1,8 +1,8 @@
-import Options from '../options/options'
-import MainDOM from './main.dom'
-import * as User from '../../model/User'
-import * as Comment from '../../model/Comment'
-import * as Group from '../../model/Group'
+import Options from '../options/options.js'
+import MainDOM from './main.dom.js'
+import * as User from '../../model/User.js'
+import * as Comment from '../../model/Comment.js'
+import * as Group from '../../model/Group.js'
 
 function initApp() {
 

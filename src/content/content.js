@@ -26,16 +26,20 @@ function initInject() {
         console.log('waitForPlayer loop') //DEVONLY
         window.requestAnimationFrame(initInject)
     } else {
-        onPlayerLoad() // player successfully loaded
+        onPlayerLoaded() // player successfully loaded
     }
 }
 
 /**
  * Called when the video fully loads
  */
-function onPlayerLoad() {
+function onPlayerLoaded() {
+    chrome.runtime.sendMessage({ loaded: true, videoId: "12345"}, response => {
+        // TODO: load the comments into the movie
+        console.log(response)
+    })
     // DEVONLY: creates a comment every 3 seconds
-    window.setInterval(() => comment('my new test comment'), 3000)
+    //window.setInterval(() => comment('my new test comment'), 3000)
 }
 
 /**

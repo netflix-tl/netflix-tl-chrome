@@ -53,8 +53,8 @@ module.exports = {
     }), new HtmlWebpackPlugin({
         name: 'background',
         filename: 'background.html',
-        chunks: ['background'],
-        template: 'src/background/background.html'
+        chunks: ['background']
+        //template: 'src/background/background.html'
     }), new CopyWebpackPlugin([
         {from: 'manifest.json', to: 'manifest.json'},
         {from: 'resources', to: 'resources'},
