@@ -5,24 +5,31 @@ import * as Comment from '../../model/Comment.js'
 import * as Group from '../../model/Group.js'
 
 function initApp() {
-
   let DOM = new MainDOM()
+  let videoId
+  let groupId
+
+  chrome.runtime.sendMessage({ popupLoaded: true }, response => {
+    videoId = response
+    DOM.commentLabel.textContent = videoId
+  })
 
   /**
-   * closeLoginPrompt and loginPrompt are passed to User.js,
+   * OnUserLoggedIn and onUserLoggedOut are passed to User.js,
    *   and are called when the login/logout status of the 
    *   user changes.
    */
-  User.initializeFirebase(closeLoginPrompt, loginPrompt)
+  User.initializeFirebase(onUserLoggedIn, OnUserLoggedOut)
 
   DOM.submitBtn.addEventListener('click', submit)
   DOM.optionsBtn.addEventListener('click', openOptions)
   DOM.logout.addEventListener('click', logout)
   DOM.inputField.addEventListener('keydown', inputKeydown)
 
-
   function submit() {
-    Comment.postComment(DOM.inputField.value)
+    console.log("postComment", groupId, videoId, DOM.inputField.value)
+    //TODO: add timestamp to postComment
+    Comment.postComment(groupId, videoId, DOM.inputField.value)
     DOM.clearInputField()
   }
 
@@ -41,24 +48,30 @@ function initApp() {
     DOM.updateCharLabel()
   }
 
-  function loginPrompt() {
-    if (!User.isUserLoggedIn()) {
-      let el = document.createElement('div')
-      el.innerHTML = DOM.getLoginOverlay();
-      document.body.appendChild(el)
-      setTimeout(() => document.getElementsByClassName('login-overlay')[0].classList.remove('loading'), 200)
-      document.getElementById('welcome-login-btn').addEventListener('click', () => User.login())
-    }
+  /**
+   * Displays login overlay
+   */
+  function OnUserLoggedOut() {
+    let el = document.createElement('div')
+    el.innerHTML = DOM.getLoginOverlay();
+    document.body.appendChild(el)
+    setTimeout(() => document.getElementsByClassName('login-overlay')[0].classList.remove('loading'), 200)
+    document.getElementById('welcome-login-btn').addEventListener('click', () => User.login())
   }
 
-  function closeLoginPrompt() {
+  /**
+   * Sets groupId to users current group
+   * Closes login overlay if its visible
+   */
+  function onUserLoggedIn() {
+    User.getCurrentGroup().then(id => groupId = id)
     let overlay = document.getElementsByClassName('login-overlay')[0];
     if (!overlay) { return console.log('prompt not open') }
     overlay.classList.add('loading')
     setTimeout(() => overlay.parentElement.remove(), 500)
   }
 
-  /**
+/**
  * This function should be extracted out to wherever
  *  the group functionality is made. ../groupview/groupview.js ?
  */

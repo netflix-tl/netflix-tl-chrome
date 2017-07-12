@@ -1,20 +1,32 @@
 initListeners()
 initInject()
 
+let videoId = getVideoId()
+
+function getVideoId() {
+    return window.location.href.match(/watch\/(.*?)(\?|$)/)[1]
+}
 /**
  * Listens for messages from the background and popup 
  *  and executes the function it receives
  */
 function initListeners() {
     chrome.runtime.onMessage.addListener((req, sender, res) => {
-        console.log(sender.tab)
-        console.log(req)
+        console.log(sender)
         if (req.function) {
-            req.function()
+            let fn = req.function
+            if (fn === "quickComment") {
+                quickComment()
+            }
         }
         res({ body: "completed" })
     }
     )
+}
+
+function quickComment() {
+    console.log("quickComment")
+    // TODO: quick comment action
 }
 
 /**
@@ -34,7 +46,8 @@ function initInject() {
  * Called when the video fully loads
  */
 function onPlayerLoaded() {
-    chrome.runtime.sendMessage({ loaded: true, videoId: "12345"}, response => {
+    console.log(videoId)
+    chrome.runtime.sendMessage({ contentLoaded: true, videoId: videoId}, response => {
         // TODO: load the comments into the movie
         console.log(response)
     })

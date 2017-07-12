@@ -3,13 +3,39 @@
   "name": "Timely Video Comments",
   "description": "Add the element of time to the comments you write on the videos you love.",
   "version": "2.1",
-  "icons": { "128": "resources/icon.png" },
+  "icons": {
+    "128": "resources/icon.png"
+  },
   "browser_action": {
     "default_icon": "resources/icon.png",
     "default_popup": "popup.html"
   },
+  "commands": {
+    "quick-comment": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Y",
+        "mac": "Command+Shift+Y"
+      },
+      "description": "Quick Comment"
+    },
+    "_execute_browser_action": {
+      "suggested_key": {
+        "windows": "Ctrl+Shift+Y",
+        "mac": "Command+Shift+Y",
+        "chromeos": "Ctrl+Shift+U",
+        "linux": "Ctrl+Shift+J"
+      }
+    },
+    "_execute_page_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+E",
+        "windows": "Alt+Shift+P",
+        "mac": "Alt+Shift+P"
+      }
+    }
+  },
   "background": {
-  	"page": "background.html"
+    "page": "background.html"
   },
   "permissions": [
     "identity"
@@ -17,16 +43,22 @@
   "content_scripts": [
     {
       "run_at": "document_end",
-      "matches": ["https://www.netflix.com/watch/*", "http://www.netflix.com/watch/*"],
-      "js": ["content.js"],
-      "css": ["resources/content.css"]
+      "matches": [
+        "https://www.netflix.com/watch/*",
+        "http://www.netflix.com/watch/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "css": [
+        "resources/content.css"
+      ]
     }
   ],
   "web_accessible_resources": [
     "resources/*"
   ],
-
-  "content_security_policy":"script-src 'self' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com; object-src 'self'",
+  "content_security_policy": "script-src 'self' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com; object-src 'self'",
   "oauth2": {
     "client_id": "418211874508-5tplavmarkt1mvr20kjq1b68kiudnmto.apps.googleusercontent.com",
     "scopes": [
