@@ -8,6 +8,7 @@ window.onload = () => {
 
   function loggedIn() {
     console.log("you are logged in")
+    // TODO: remove the window props below
     window.Group = Group
     window.User = User
     window.Comment = Comment
