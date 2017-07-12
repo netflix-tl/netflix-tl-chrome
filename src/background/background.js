@@ -1,51 +1,56 @@
-/*  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyDmdXL5QSnAv4h1xIx4YUkuoAoGsN83rzo",
-    authDomain: "timely-vc.firebaseapp.com",
-    databaseURL: "https://timely-vc.firebaseio.com",
-    projectId: "timely-vc",
-    storageBucket: "timely-vc.appspot.com",
-    messagingSenderId: "418211874508"
-  };
-  firebase.initializeApp(config);
+import * as User from '../model/User'
+import * as Group from '../model/Group'
+import * as Comment from '../model/Comment'
 
-  function initApp() {
-    firebase.auth().onAuthStateChanged(function(user){
-      console.log('background.js detected state change', user)
+window.onload = () => {
+  let videoId
+  User.initializeFirebase(loggedIn, () => console.log('you are logged out'));
+
+  function loggedIn() {
+    console.log("you are logged in")
+    // TODO: remove the window props below
+    window.Group = Group
+    window.User = User
+    window.Comment = Comment
+  }
+
+  chrome.commands.onCommand.addListener(command => {
+    if (command === "quick-comment") {
+      console.log("quick comment")
+      sendMessageToContentScript({function: "quickComment"})
+    }
+  })
+
+  function sendMessageToContentScript(mes) {
+    chrome.tabs.query({active:true, currentWindow:true}, tabs => {
+      chrome.tabs.sendMessage(tabs[0].id, mes, response => console.log(response))
     })
   }
 
-  window.onload = function(){
-    initApp()
-  }*/
+  chrome.runtime.onMessage.addListener(
+    (request, sender, sendResponse) => {
+      console.log(sender.tab ?
+        "from content.js" + sender.tab.url :
+        "from extension:"
+      )
 
-  /*
-
-
-    groups:{
-      comments: {
-        $videoId:{
-          one: {
-              user:
-              comment:
-              timestamp:
-          }
-          two:
-          three:
+      if (request.contentLoaded) {
+        // content.js says netflix video is loaded
+        videoId = request.videoId
+        User.getCurrentGroup()
+          .then(groupId =>
+            Comment.getComments(groupId, videoId)
+          )
+          .then(comments => {
+            sendResponse(comments)
+          })
+        return true  // required for async response
+      } else if (request.popupLoaded) {
+        if (!videoId) {
+          console.log("no video is playing")
         }
-      }
-
-    }
-    comments: {
-      $videoId:{
-          one:
-          two:
-          three:
+        sendResponse(videoId)
       }
     }
-
-
-
-
-
-  */
+  )
+}

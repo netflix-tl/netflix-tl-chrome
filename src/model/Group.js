@@ -1,50 +1,52 @@
 import firebase from 'firebase'
 
-export function createGroup({
-    name = 'DEFAULTNAME',
-    memberCount = 0,
-    memberList = [],
-    videoList = []
-}) {
-    console.log("Group.createGroup")
-    const user = firebase.auth().currentUser
-    if (user) {
-        memberCount += 1
-        memberList.push(user.uid)
-
-        let ref = firebase.database().ref('groups/')
-        let groupRef = ref.push();
-        groupRef.set({
-            name: name,
-            memberCount: memberCount,
-            memberList: memberList,
-            videoList: videoList,
-            owner: user.uid,
-        })
-        
-        console.log('SUCCESS: groupRef: ' + groupRef)
-    } else {
-        console.log("FAILED: couldn't get firebase user")
-    }
-}
-
-export function getGroupById(id) {
-    console.log("Group.getGroup")
-    if (user) {
-        memberCount += 1
-        memberList.push(user.uid)
-
-        firebase.database().ref('groups/')
-        .push({
+/**
+ * Creates a group with given name property
+ * @param {string} name 
+ */
+export function createGroup(name) {
+    const uid = firebase.auth().currentUser.uid
+    let groupId = firebase.database()
+        .ref('groups/headers/').push().key;
+    let data = {};
+    data['groups/headers/' + groupId] = {
         name: name,
-        memberCount: memberCount,
-        memberList: memberList,
-        videoList: videoList,
-        owner: user.uid,
-        })
-    } else {
-        console.log("FAILED: couldn't get firebase user")
+        memberCount: 1,
+        owner: uid
     }
+    data[`groups/members/${groupId}/${uid}`] = true
+    data[`users/${uid}/groups/${groupId}`] = true
+
+    return firebase.database().ref().update(data)
+        .catch(err => console.log(err))
 }
 
-console.log('loaded Group.js')
+/**
+ * Promise of object of group members keyed by uid.
+ * @param {number} groupId 
+ */
+export function getGroupMembers(groupId) {
+    return firebase.database().ref(`groups/members/${groupId}`).once('value')
+        .then(members => {
+            return Object.keys(members.val())
+        })
+        .catch(err => console.log(err))
+}
+
+/**
+ * Promise of object of all groups' headers.
+ */
+export function getGroupHeaders() {
+    return firebase.database().ref('groups/headers')
+        .once('value')
+        .then(headers => headers.val())
+}
+
+/**
+ * Called on all and any new group headers.
+ * @param {function} onValue 
+ */
+export function onGroupHeaders(onValue) {
+    return firebase.database().ref('groups/headers')
+        .on('child_added', onValue)
+}

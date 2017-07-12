@@ -9,6 +9,7 @@ export default class MainDOM {
         this.inputField = document.getElementById('comment-input')
         this.charLabel = document.getElementsByClassName('char-label')[0]
         this.timeLabel = document.getElementsByClassName('time-label')[0]
+        this.commentLabel = document.getElementsByClassName('comment-label')[0]
         this.messageText = document.getElementsByClassName('message-text')[0]
         this.submitBtn = document.getElementsByClassName('submit-btn')[0]
         this.optionsBtn = document.getElementsByClassName('options-btn')[0]

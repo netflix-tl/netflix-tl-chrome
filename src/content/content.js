@@ -1,20 +1,32 @@
 initListeners()
 initInject()
 
+let videoId = getVideoId()
+
+function getVideoId() {
+    return window.location.href.match(/watch\/(.*?)(\?|$)/)[1]
+}
 /**
  * Listens for messages from the background and popup 
  *  and executes the function it receives
  */
 function initListeners() {
     chrome.runtime.onMessage.addListener((req, sender, res) => {
-        console.log(sender.tab)
-        console.log(req)
+        console.log(sender)
         if (req.function) {
-            req.function()
+            let fn = req.function
+            if (fn === "quickComment") {
+                quickComment()
+            }
         }
         res({ body: "completed" })
     }
     )
+}
+
+function quickComment() {
+    console.log("quickComment")
+    // TODO: quick comment action
 }
 
 /**
@@ -26,16 +38,21 @@ function initInject() {
         console.log('waitForPlayer loop') //DEVONLY
         window.requestAnimationFrame(initInject)
     } else {
-        onPlayerLoad() // player successfully loaded
+        onPlayerLoaded() // player successfully loaded
     }
 }
 
 /**
  * Called when the video fully loads
  */
-function onPlayerLoad() {
+function onPlayerLoaded() {
+    console.log(videoId)
+    chrome.runtime.sendMessage({ contentLoaded: true, videoId: videoId}, response => {
+        // TODO: load the comments into the movie
+        console.log(response)
+    })
     // DEVONLY: creates a comment every 3 seconds
-    window.setInterval(() => comment('my new test comment'), 3000)
+    //window.setInterval(() => comment('my new test comment'), 3000)
 }
 
 /**
