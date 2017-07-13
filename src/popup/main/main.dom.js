@@ -13,6 +13,7 @@ export default class MainDOM {
         this.messageText = document.getElementsByClassName('message-text')[0]
         this.submitBtn = document.getElementsByClassName('submit-btn')[0]
         this.optionsBtn = document.getElementsByClassName('options-btn')[0]
+        this.groupsBtn = document.getElementsByClassName('groups-btn')[0]
         this.logout = document.getElementsByClassName('logout-btn')[0]
         this.testBtn = document.getElementsByClassName('test-btn')[0]
         this.popupInner = document.getElementsByClassName('popup-inner')[0]

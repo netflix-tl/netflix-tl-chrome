@@ -20,6 +20,31 @@ export function createGroup(name) {
     return firebase.database().ref().update(data)
         .catch(err => console.log(err))
 }
+export function getGroupHeadersListener(onValue) {
+    return firebase.database().ref('groups').child('headers')
+        .limitToFirst(5)
+        .on('child_added', onValue)
+}
+
+
+export function getGroupById(id) {
+    console.log("Group.getGroup")
+    if (user) {
+        memberCount += 1
+        memberList.push(user.uid)
+
+        firebase.database().ref('groups/')
+            .push({
+                name: name,
+                memberCount: memberCount,
+                memberList: memberList,
+                videoList: videoList,
+                owner: user.uid,
+            })
+    } else {
+        console.log("FAILED: couldn't get firebase user")
+    }
+}
 
 /**
  * Promise of object of group members keyed by uid.

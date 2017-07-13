@@ -1,8 +1,10 @@
-import Options from '../options/options.js'
-import MainDOM from './main.dom.js'
-import * as User from '../../model/User.js'
-import * as Comment from '../../model/Comment.js'
-import * as Group from '../../model/Group.js'
+
+import Options from '../options/options'
+import Groups from '../groups/groups'
+import MainDOM from './main.dom'
+import * as User from '../../model/User'
+import * as Comment from '../../model/Comment'
+import * as Group from '../../model/Group'
 
 function initApp() {
   let DOM = new MainDOM()
@@ -22,7 +24,8 @@ function initApp() {
   User.initializeFirebase(onUserLoggedIn, OnUserLoggedOut)
 
   DOM.submitBtn.addEventListener('click', submit)
-  DOM.optionsBtn.addEventListener('click', openOptions)
+    DOM.optionsBtn.addEventListener('click', openOptions)
+    DOM.groupsBtn.addEventListener('click', openGroups)
   DOM.logout.addEventListener('click', logout)
   DOM.inputField.addEventListener('keydown', inputKeydown)
 
@@ -32,6 +35,10 @@ function initApp() {
     Comment.postComment(groupId, videoId, DOM.inputField.value)
     DOM.clearInputField()
   }
+
+  function openGroups() {
+        Groups()
+    }
 
   function openOptions() {
     Options()

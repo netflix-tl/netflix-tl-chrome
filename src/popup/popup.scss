@@ -46,6 +46,10 @@ body {
 	transform: translate(-100%,0);
 }
 
+.main-section.up {
+	transform: translate(0,-100%);
+}
+
 .options-section {
 	position: absolute;
 	top: 0;
@@ -57,6 +61,16 @@ body {
 	transform: translate(0,0);
 }
 
+.groups-section {
+	position: absolute;
+	top: 0;
+	left: 0;
+	transform: translate(0, 100%);
+}
+
+.groups-section.up {
+	transform: translate(0,-100%);
+}
 
 .vc-btn {
 	cursor: pointer;
@@ -111,3 +125,4 @@ i.material-icons {
 	vertical-align: middle;
 	color: #3b3b3b;
 }
+
