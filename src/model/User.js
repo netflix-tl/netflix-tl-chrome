@@ -33,6 +33,20 @@ export function getCurrentGroup() {
 }
 
 /**
+ * Returns a promise that resolves to an array of the user's group IDs.
+ */
+export function getMemberGroups() {
+    return firebase.database().ref(`users/${firebase.auth().currentUser.uid}/groups`).once('value')
+        .then((groups) => {
+            if(groups.exists()) {
+                return Object.keys(groups.val())
+            } else {
+              return []
+            }
+        })
+}
+
+/**
  * Makes the user join a group with given groupId.
  * @param {number} groupId 
  */
@@ -40,8 +54,8 @@ export function joinGroup(groupId) {
   let uid = firebase.auth().currentUser.uid
   let data = {}
   data[`users/${uid}/group`] = groupId
+  data[`users/${uid}/groups/${groupId}`] = true
   data[`groups/members/${groupId}/${uid}`] = true
-
 
   return firebase.database().ref().update(data)
     .then(() => {
@@ -85,11 +99,6 @@ export function onOnlineUserCount(callback) {
       console.log("# of online users = " + snap.numChildren());
       callback && callback(snap.numChildren())
     });
-}
-
-export function joinGroup(groupId) {
-    const userRef = firebase.database().ref().child('users').child(getCurrentUser().uid)
-    return userRef.child('groups').child(groupId).set(true)
 }
 
 
