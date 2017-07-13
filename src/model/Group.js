@@ -18,11 +18,12 @@ export function createGroup(name) {
     data[`users/${uid}/groups/${groupId}`] = true
 
     return firebase.database().ref().update(data)
+        .then(() => groupId)
         .catch(err => console.log(err))
 }
 export function getGroupHeadersListener(onValue) {
     return firebase.database().ref('groups').child('headers')
-        .limitToFirst(5)
+        .limitToFirst(50)
         .on('child_added', onValue)
 }
 

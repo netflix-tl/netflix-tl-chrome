@@ -4,10 +4,10 @@
   "description": "Add the element of time to the comments you write on the videos you love.",
   "version": "2.1",
   "icons": {
-    "128": "resources/icon.png"
+    "128": "resources/128_timely.png"
   },
   "browser_action": {
-    "default_icon": "resources/icon.png",
+    "default_icon": "resources/128_timely.png",
     "default_popup": "popup.html"
   },
   "commands": {

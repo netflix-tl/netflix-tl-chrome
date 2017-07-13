@@ -38,7 +38,7 @@ body {
 .popup-section {
 	height: 200px;
 	width: 300px;
-	transition: transform .3s;
+	transition: all .3s;
 	transition-timing-function: ease-out;
 }
 
@@ -69,7 +69,7 @@ body {
 }
 
 .groups-section.up {
-	transform: translate(0,-100%);
+	transform: translate(0,0);
 }
 
 .vc-btn {
@@ -101,7 +101,7 @@ body {
 	font-family: inherit;
 	font-weight: 500;
 	height: 32px;
-	width: 80px;
+	padding: 4px 12px;
 }
 .icon-btn {
 	@extend .vc-btn;
