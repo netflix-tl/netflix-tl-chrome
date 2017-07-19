@@ -1,18 +1,14 @@
-# timely-vc-chrome
-:clapper: A chrome extension that adds a timeline-based comment feed to Netflix videos.  
+[![Build Status](https://travis-ci.org/timely-vc/timely-vc-chrome.svg?branch=master)](https://travis-ci.org/timely-vc/timely-vc-chrome)
+<div align="center">
+  <a href="https://github.com/timely-vc/timely-vc-chrome">
+    <img width="200" heigth="200" src="https://rawgit.com/timely-vc/timely-vc-chrome/master/docs/ty-bubble-1.SVG">
+  </a>
+  <br>
+  <br>
+  <h1>Timely.vc Chrome Extension</h1>
+  <p>
+    :clapper: A chrome extension that adds a timeline-based comment feed to Netflix videos.  
+  <p>
+</div>
 
 [![Build Status](https://travis-ci.org/timely-vc/timely-vc-chrome.svg?branch=master)](https://travis-ci.org/timely-vc/timely-vc-chrome)
-## Mockups
-
-#### Popup Main Page
-<kbd><img src="https://github.com/timely-vc/timely-vc-chrome/blob/master/docs/mockups/popup-main-shortComment.PNG"></kbd>
-<kbd><img src="https://github.com/timely-vc/timely-vc-chrome/blob/master/docs/mockups/popup-main-longComment.PNG"></kbd>
-
-#### Popup Group View Page
-<kbd><img src="https://github.com/timely-vc/timely-vc-chrome/blob/master/docs/mockups/popup.goupView-menuBtn.PNG"></kbd>
-
-#### Popup Group Search Page
-<kbd><img src="https://github.com/timely-vc/timely-vc-chrome/blob/master/docs/mockups/popup-groupSearch-hot.PNG"></kbd>
-<kbd><img src="https://github.com/timely-vc/timely-vc-chrome/blob/master/docs/mockups/popup-groupSearch-fav.PNG"></kbd>
-<kbd><img src="https://github.com/timely-vc/timely-vc-chrome/blob/master/docs/mockups/popup-groupSearch-history.png"></kbd>
-<kbd><img src="https://github.com/timely-vc/timely-vc-chrome/blob/master/docs/mockups/popup-groupSearch-search.PNG"></kbd>
