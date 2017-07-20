@@ -4,10 +4,13 @@
   "description": "Add the element of time to the comments you write on the videos you love.",
   "version": "2.1",
   "icons": {
-    "128": "resources/icon.png"
+    "48": "resources/logo_48.png",
+    "64": "resources/logo_64.png",
+    "128": "resources/logo_128.png",
+    "256": "resources/logo_256.png"
   },
   "browser_action": {
-    "default_icon": "resources/icon.png",
+    "default_icon": "resources/logo_64.png",
     "default_popup": "popup.html"
   },
   "commands": {
@@ -49,9 +52,6 @@
       ],
       "js": [
         "content.js"
-      ],
-      "css": [
-        "resources/content.css"
       ]
     }
   ],

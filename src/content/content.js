@@ -1,7 +1,20 @@
+// Material Design Icon Font
+import 'material-design-icons-iconfont/dist/material-design-icons.scss'
+
+import 'typeface-roboto'
+import css from './content.scss'
+console.log(css)
+function injectCSS() {
+    el = document.createElement('style')
+    document.head.appendChild(el)
+    el.type = 'text/css'
+    el.appendChild(document.createTextNode(css.toString()))
+}
 initListeners()
 initInject()
 
 let videoId = getVideoId()
+let quickCommentOpen = false
 
 function getVideoId() {
     return window.location.href.match(/watch\/(.*?)(\?|$)/)[1]
@@ -14,19 +27,13 @@ function initListeners() {
     chrome.runtime.onMessage.addListener((req, sender, res) => {
         console.log(sender)
         if (req.function) {
-            let fn = req.function
-            if (fn === "quickComment") {
+            if (req.function === "quickComment") {
                 quickComment()
             }
         }
         res({ body: "completed" })
     }
     )
-}
-
-function quickComment() {
-    console.log("quickComment")
-    // TODO: quick comment action
 }
 
 /**
@@ -52,7 +59,7 @@ function onPlayerLoaded() {
         console.log(response)
     })
     // DEVONLY: creates a comment every 3 seconds
-    //window.setInterval(() => comment('my new test comment'), 3000)
+    window.setInterval(() => comment('my new test comment'), 3000)
 }
 
 /**
@@ -72,13 +79,14 @@ function addMarker() {
  */
 function comment(text, duration = 2500) {
     console.log('new comment') //DEVONLY
+
     let player = document.getElementById('netflix-player')
     let comment = document.createElement('div')
     comment.classList.add('vc-comment')
     comment.textContent = text
 
     player.appendChild(comment)
-    setTimeout(fadein, 10)
+    setTimeout(fadein, 20)
 
     function fadein() {
         comment.style['transform'] = 'translate(0,0)'
@@ -93,4 +101,30 @@ function comment(text, duration = 2500) {
     function removeComment() {
         comment.remove()
     }
+}
+
+function quickComment() {
+    // let toastElement = $(`
+    //     <div class="input-field">
+    //         <input class="comment-input" id="comment-input">
+    //         <label for="comment-input" class="active">insightful comment</label>
+    //     </div>
+    // `)
+    // Materialize.toast(toastElement, 1000000)
+    console.log('quick comment')
+    // if (quickCommentOpen === true) {
+    //     return null;
+    // }
+    // quickCommentOpen = true
+    // let el = document.createElement('div')
+    // el.innerHTML = `
+    //     <div class="input-field">
+    //         <input type="text" class="comment-input" id="comment-input">
+    //         <label for="comment-input" class="comment-label">comment</label>
+    //     </div>`
+    // el.classList.add('vc-quick-comment')
+    // document.body.appendChild(el)
+    // el.focus()
+    // setTimeout(()=>el.classList.add('in'), 500)
+
 }
