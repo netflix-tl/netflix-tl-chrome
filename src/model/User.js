@@ -22,28 +22,20 @@ export function isUserLoggedIn() {
 }
 
 /**
- * Returns current group of the user.
- * Assumes can only join one group at a time.
+ * Returns list of groups of the user, keyed by groupId.
+ * Default group is also keyed by 'default'
  */
-export function getCurrentGroup() {
+export function getUserGroups() {
   let uid = firebase.auth().currentUser.uid
-  let ref = firebase.database().ref(`users/${uid}/group`)
+  let ref = firebase.database().ref(`users/${uid}/groups`)
   return ref.once('value')
-    .then(snapshot => snapshot.val())
-}
-
-/**
- * Returns a promise that resolves to an array of the user's group IDs.
- */
-export function getMemberGroups() {
-    return firebase.database().ref(`users/${firebase.auth().currentUser.uid}/groups`).once('value')
-        .then((groups) => {
-            if(groups.exists()) {
-                return Object.keys(groups.val())
-            } else {
-              return []
-            }
-        })
+    .then(snapshot => {
+      if(!snapshot.exists()) {
+        console.log('no groups')
+        return {default: 'global'}
+      }
+      return snapshot.val()
+    })
 }
 
 /**
@@ -53,7 +45,7 @@ export function getMemberGroups() {
 export function joinGroup(groupId) {
   let uid = firebase.auth().currentUser.uid
   let data = {}
-  data[`users/${uid}/group`] = groupId
+  data[`users/${uid}/groups/default`] = groupId
   data[`users/${uid}/groups/${groupId}`] = true
   data[`groups/members/${groupId}/${uid}`] = true
 
@@ -70,17 +62,18 @@ export function joinGroup(groupId) {
 /**
  * Leaves the current group
  */
-export function leaveCurrentGroup() {
+export function leaveGroup(groupId) {
   let uid = firebase.auth().currentUser.uid
-  return getCurrentGroup()
-    .then(groupId => {
+  return getUserGroups()
+    .then(groups => {
       let data = {}
-      data[`users/${uid}/group`] = false
+      if (groups.default === groupId) {
+        data[`users/${uid}/groups/default`] = 'global'
+      }
       data[`groups/members/${groupId}/${uid}`] = false
       firebase.database().ref().update(data)
-      return groupId
     })
-    .then((groupId) => {
+    .then(() => {
       firebase.database()
         .ref(`groups/headers/${groupId}/memberCount`)
         .transaction(count => (count || 1) - 1)

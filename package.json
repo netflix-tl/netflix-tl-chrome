@@ -38,6 +38,7 @@
     "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
+    "bodymovin": "^4.9.0",
     "extract-loader": "^0.1.0",
     "extract-text-webpack-plugin": "^3.0.0",
     "firebase": "^4.1.3",

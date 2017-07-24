@@ -71,7 +71,7 @@ function initApp() {
    * Closes login overlay if its visible
    */
   function onUserLoggedIn() {
-    User.getCurrentGroup().then(id => groupId = id)
+    User.getUserGroups().then(groups => groups.default = groupId)
     let overlay = document.getElementsByClassName('login-overlay')[0];
     if (!overlay) { return console.log('prompt not open') }
     overlay.classList.add('loading')

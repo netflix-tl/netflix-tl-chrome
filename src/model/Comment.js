@@ -6,19 +6,18 @@ import firebase from 'firebase'
  * @param {number} videoId 
  * @param {string} comment 
  */
-export function postComment(groupId, videoId, comment) {
+export function postComment(groupId, videoId, time, message) {
     const uid = firebase.auth().currentUser.uid
     let commentObj = {
         uid: uid,
-        comment: comment,
-        timestamp: 1001
+        message: message
     }
-    let commentId = firebase.database()
-        .ref(`comments/${groupId}/${videoId}`).push().key
+    // let commentId = firebase.database()
+    //     .ref(`comments/${groupId}/${videoId}/${time}`).
     
     let data = {}
-    data[`comments/${groupId}/${videoId}/${commentId}`] = commentObj
-    data[`users/${uid}/comments/${commentId}`] = commentObj
+    data[`comments/${groupId}/${videoId}/${time}`] = commentObj
+    //data[`users/${uid}/comments/${commentId}`] = commentObj
 
     firebase.database().ref().update(data)
         .catch(err => console.log(err))
@@ -33,6 +32,11 @@ export function getComments(groupId, videoId) {
     let ref = firebase.database()
         .ref(`comments/${groupId}/${videoId}`)
     return ref.once('value')
-        .then(comments => comments.val())
+        .then(comments => {
+            if (!comments.exists()) {
+                return {}
+            }
+            return comments.val()
+        })
 }
 

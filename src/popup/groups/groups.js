@@ -13,7 +13,7 @@ export default function Groups() {
         document.getElementsByClassName('groups-section')[0].classList.remove('up')
     })
 
-    User.getMemberGroups().then((memberGroups) => {
+    User.getUserGroups().then((memberGroups) => {
         Group.getGroupHeadersListener((header) => {
             if(!memberGroups.includes(header.ref.key)) {
                 let groupItem = dom.createListElementFromGroup(header.val())

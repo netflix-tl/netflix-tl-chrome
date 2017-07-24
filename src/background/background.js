@@ -17,12 +17,12 @@ window.onload = () => {
   chrome.commands.onCommand.addListener(command => {
     if (command === "quick-comment") {
       console.log("quick comment")
-      sendMessageToContentScript({function: "quickComment"})
+      sendMessageToContentScript({ function: "quickComment" })
     }
   })
 
   function sendMessageToContentScript(mes) {
-    chrome.tabs.query({active:true, currentWindow:true}, tabs => {
+    chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
       chrome.tabs.sendMessage(tabs[0].id, mes, response => console.log(response))
     })
   }
@@ -30,26 +30,46 @@ window.onload = () => {
   chrome.runtime.onMessage.addListener(
     (request, sender, sendResponse) => {
       console.log(sender.tab ?
-        "from content.js" + sender.tab.url :
+        "froms content.js" + sender.tab.url :
         "from extension:"
       )
 
       if (request.contentLoaded) {
-        // content.js says netflix video is loaded
+        // content.js says netflix video is loaded, with videoId
         videoId = request.videoId
-        User.getCurrentGroup()
-          .then(groupId =>
-            Comment.getComments(groupId, videoId)
-          )
+
+        let response = {}
+        User.getUserGroups()
+          .then(groups => {
+            response.groups = groups
+            console.log(groups)
+            return Comment.getComments(groups.default, videoId)
+          })
           .then(comments => {
-            sendResponse(comments)
+            response.comments = comments
+            sendResponse(response)
           })
         return true  // required for async response
-      } else if (request.popupLoaded) {
+      }
+
+      if (request.popupLoaded) {
         if (!videoId) {
           console.log("no video is playing")
         }
         sendResponse(videoId)
+        return false
+      }
+
+      if (request.submitComment) {
+        let submitComment = request.submitComment
+        submitComment.groups.forEach(groupId => {
+          Comment.postComment(
+            groupId,
+            submitComment.videoId,
+            submitComment.time,
+            submitComment.message
+          )
+        })
       }
     }
   )
