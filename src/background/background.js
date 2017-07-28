@@ -34,7 +34,7 @@ window.onload = () => {
         "from extension:"
       )
 
-      if (request.contentLoaded) {
+      if (request.videoId) {
         // content.js says netflix video is loaded, with videoId
         videoId = request.videoId
 

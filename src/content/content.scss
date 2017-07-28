@@ -1,11 +1,10 @@
 .vc-marker {
     position: absolute;
-    top: 1.6em;
+    top: 1.8em;
     width: 1em;
     height: 1em;
     border-radius: 1em;
-    background-color: yellow;
-    left: 1em;
+    background-color: lightgrey;
 }
 
 .vc-icon-btn {
@@ -64,6 +63,7 @@
             opacity: 1;
         }
     }
+
     .vc-comment-before,
     .vc-comment-after {
         font-size: 16px;
