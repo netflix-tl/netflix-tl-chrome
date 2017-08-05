@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/Bkucera/netflix-tl-chrome#readme",
   "devDependencies": {
+    "@types/chrome": "0.0.47",
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
     "babel-preset-es2015": "^6.24.1",
@@ -35,11 +36,12 @@
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.1",
     "webpack": "^2.6.0",
-    "webpack-dev-server": "^2.4.5"
+    "webpack-dev-server": "^2.4.5",
+    "url-loader": "^0.5.9"
   },
   "dependencies": {
     "firebase": "^4.1.3",
     "material-design-icons-iconfont": "^3.0.3",
-    "materialize-css": "^0.99.0"
+    "typeface-roboto": "0.0.20"
   }
 }
