@@ -5,11 +5,9 @@
   "version": "2.1",
   "icons": {
     "48": "resources/logo_48.png",
-    "32": "resources/logo_32.png",
     "64": "resources/logo_64.png",
     "128": "resources/logo_128.png",
-    "256": "resources/logo_256.png",
-    "512": "resources/logo_512.png"
+    "256": "resources/logo_256.png"
   },
   "browser_action": {
     "default_icon": "resources/logo_64.png",
@@ -49,14 +47,11 @@
     {
       "run_at": "document_end",
       "matches": [
-        "https://www.netflix.com/watch/*",
-        "http://www.netflix.com/watch/*"
+        "https://www.netflix.com/*",
+        "http://www.netflix.com/*"
       ],
       "js": [
         "content.js"
-      ],
-      "css": [
-        "resources/content.css"
       ]
     }
   ],

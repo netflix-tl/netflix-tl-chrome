@@ -31,11 +31,11 @@ module.exports = {
         },
         {
             test: /\.(scss|css)$/,
-            loaders: ['style-loader', 'css-loader', 'sass-loader']
+            use: [{loader:'style-loader'}, {loader:'css-loader'}, {loader:'sass-loader'}]
         },
-         {
+        {
             test   : /\.(ttf|eot|svg|woff|woff2)$/,
-            loader : 'file-loader'
+            loader : 'url-loader'
         }
         ]
     },
@@ -57,8 +57,7 @@ module.exports = {
         //template: 'src/background/background.html'
     }), new CopyWebpackPlugin([
         {from: 'manifest.json', to: 'manifest.json'},
-        {from: 'resources', to: 'resources'},
-        {from: 'src/content/content.css', to: 'resources/content.css'}
+        {from: 'resources', to: 'resources'}
     ])
     ]
 }
