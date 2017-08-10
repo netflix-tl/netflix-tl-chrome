@@ -44,8 +44,8 @@
     {
       "run_at": "document_end",
       "matches": [
-        "https://www.netflix.com/watch/*",
-        "http://www.netflix.com/watch/*"
+        "https://www.netflix.com/*",
+        "http://www.netflix.com/*"
       ],
       "js": [
         "content.js"

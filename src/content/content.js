@@ -1,5 +1,21 @@
-initListeners()
-initInject()
+let url = window.location.href
+
+if(window.location.href.includes('netflix.com/watch/')) {
+    initVideoPage()
+}
+
+setInterval(() => {
+    if(window.location.href.includes('netflix.com/watch/') && url != window.location.href) {
+        url = window.location.href
+        initVideoPage()
+    }
+}, 100)
+
+function initVideoPage() {
+    videoId = getVideoId()
+    initListeners()
+    initInject()
+}
 
 let videoId = getVideoId()
 
